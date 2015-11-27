@@ -1,8 +1,13 @@
 import Machine
 
 def actualise_etat_et_gene(instance_machine, date):
-    instance_machine.modifierEtatActuel( - 0.01 )
-    instance_machine.modifierGene(instance_machine.renvoyerGene() + get_delta_gene(instance_machine, date))
+    if instance_machine.renvoyerEtatContinu():
+        instance_machine.modifierEtatActuel( - 0.01 )
+        instance_machine.modifierGene(instance_machine.renvoyerGene() + get_delta_gene(instance_machine, date))
+    else:
+        instance_machine.modifierEtatActuel( 0 )
+        instance_machine.modifierGene(instance_machine.renvoyerGene() + get_delta_gene(instance_machine, date))
+        
     
     
 def get_delta_gene(instance_machine, date):
@@ -11,7 +16,7 @@ def get_delta_gene(instance_machine, date):
         Pq_après = Pq_actuelle - 0.01*instance_machine.renvoyerConsoMax()
         Text = datetime_to_temperature(date) #température extérieure, implémenter le fichier
         temp_apres = calcul_temp(Tint, Text, Pq_actuelle) #Tint à implémenter
-        gene_apres = calcul_gene(temp_apres)
+        gene_apres = calcul_gene(temp_apres) 
         delta_gene = gene_apres - instance_machine.renvoyerGene() 
         return( delta_gene )        
 
