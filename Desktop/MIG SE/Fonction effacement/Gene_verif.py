@@ -1,4 +1,5 @@
-import Machine
+import Machine_verif
+import datetime_to_temperature_verif
 
 def actualise_etat_et_gene(instance_machine, date):
     if instance_machine.renvoyerEtatContinu():

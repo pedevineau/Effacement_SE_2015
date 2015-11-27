@@ -1,10 +1,12 @@
 import pandas as pd
 from datetime import *
-import Machine_verif as mv
-import Batiment_verif as bv
-import Gene_verif as gv
+import Machine_verif 
+import Batiment_verif 
+import Gene_verif as 
 import datetime_to_temp_verif as dt
 
+## déboguer les fonctions appelées
+## fournir matrice exemple à l'équipe affichage
 
 def datetime_to_temperature(datetime1):
     str1 = str(datetime1.day) + '/' + str(datetime1.month) + '/' +str(datetime1.year) + ' '             +str(datetime1.hour) + ':' +str(datetime1.minute) + ":" + str(datetime1.second)
@@ -46,7 +48,7 @@ def effacement_main( date_debut, Puissance_a_effacer ):
                     plus_modifiables.append(machine)
                 elif machine.renvoyerEtatContinu():
                     if machine.renvoyerEtat() >= 0.01:
-                        deltagene = gv.get_delta_gene(machine, date_debut)
+                        deltagene = get_delta_gene(machine, date_debut)
                         priorite = machine.consoMachine()/(deltagene*100)
                         liste_tuples.append( (priorite, machine) )
                     else:
@@ -73,7 +75,8 @@ def effacement_main( date_debut, Puissance_a_effacer ):
     #Début de la boucle temporelle:
     for date in liste_dates[1::]:
         Puissance_tot = sum( [matrice[nb_iter][x][2] for x in range( len(liste_machines) ) ])
-        liste_temp_int_simul.append( calcul_temp(Puissance_tot) ) ##fonction calcul_temp à définir en fonction de P_tot, T_préc, T_ext(date)
+        liste_temp_int_simul.append( calcul_temp(Puissance_tot) ) 
+        ##fonction calcul_temp à définir en fonction de P_tot, T_préc, T_ext(date)
     
     #retour de la liste des temps, liste temporelle des températures simulées, et la matrice pas à pas
     return(liste_dates, liste_temp_int_simul, matrice)

@@ -43,9 +43,8 @@ class Machine :
 			geneMaxTolere = 1
 
 		self.__geneMaxTolere = geneMaxTolere
-		
 		self.__etatContinu = etatContinu
-		
+		self.__gene = gene
 		
 		
     
