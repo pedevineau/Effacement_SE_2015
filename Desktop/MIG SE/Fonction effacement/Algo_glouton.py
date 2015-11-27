@@ -25,7 +25,6 @@ def Effacement_glouton_temps(date_debut, date_fin, Puissance_a_effacer):
     liste_temperature = []
     liste_consommation = []
     Donnees_etats = pd.DataFrame([])
-    while Temps_ecoule < Duree_effacement:
         k = 1
         eteints = [machine for machine in liste_machine if machine.etat == 0]
         if Puissance_a_effacer > Puissance_max_effaçable():

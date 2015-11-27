@@ -1,6 +1,6 @@
 class Machine :
         
-	def __init__(self, nom, consoMax, etatActuel, geneMaxTolere, etatContinu, etatRef, gene) :
+	def __init__(self, nom, consoMax, etatActuel, geneMaxTolere, etatContinu, gene) :
 		self.__nom = nom
 
 		if(consoMax >= 0) :
@@ -46,12 +46,8 @@ class Machine :
 		
 		self.__etatContinu = etatContinu
 		
-		if (etatRef < 0) :
-			etatRef = 0
-		elif (etatRef >1) :
-			etatRef = 1
 		
-		self.__etatRef = etatRef
+		
     
 	def __str__(self) :
 		s = "Machine : [nom="+str(self.__nom)
@@ -59,8 +55,7 @@ class Machine :
 		s +=  ", etatActuel="+str(self.__etatActuel)
 		s += ", geneMaxTolere="+str(self.__geneMaxTolere)
 		s += ", etatContinu="+str(self.__etatContinu)
-		s +=  ", etatRef="+str(self.__etatRef)+"]"
-		s += ", etatRef="+str(self.__gene)+"]"
+		s += ", gene="+str(self.__gene)+"]"
 		return s
 
 
@@ -75,8 +70,6 @@ class Machine :
 		return self.__geneMaxTolere            
 	def renvoyerEtatContinu(self) :
 		return self.__etatContinu            
-	def renvoyerEtatRef(self) :
-		return self.__etatRef 
 	def renvoyerGene(self):
 		return self.__gene
 
@@ -92,8 +85,6 @@ class Machine :
 			return True
 		return False
 
-	def modifierEtatRef(self, nouvelEtatRef) :
-		self.__etatRef = nouvelEtatRef
 	def modifierGeneMaxTolere(self, nouvelleGeneMaxTolere) :
 		self.__geneMaxTolere = nouvelleGeneMaxTolere
 	
@@ -105,17 +96,3 @@ class Machine :
 #||||||||||||||||||||||||  METHODES  |||||||||||||||||||||||||||||
 	def consoMachine (self) :
 		return self.__consoMax * self.__etatActuel
-	                
-	def geneMachine(self, temps, x) :
-		return (self.__etatRef - self.__etatActuel)*self.__priorite * temps**2
-
-	def effacementMax (self) :
-		return self.__conso * (self.__etatActuel - etatEffacementMax())
-
-	def etatEffacementMax (self) :
-		etatEffacementMax=1
-		for i in arange(21) :
-			etatEffacement = 1 - i*(5/100);
-		if( self.__geneMaxTolere < geneMachine(etatEffacement)) :
-			return etatEffacement+i*(5/100)
-		return 1

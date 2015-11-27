@@ -28,10 +28,10 @@ def get_delta_gene(instance_machine, date):
     
         
 
-def calcul_gene_t(x):   #calcul de la gene en fonction de T
+def calcul_gene_t(Tint):   #calcul de la gene en fonction de T
     if instance_machine.renvoyerNom() == "chauffage" or instance_machine.renvoyerNom() == "clim" :
         if 19 <= x <= 25:
-            return(((x-22)**4)/81)
+            return(((x-22)**4) /81)
         else:
             return(1)
     
