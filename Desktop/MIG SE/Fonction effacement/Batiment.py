@@ -1,28 +1,26 @@
-
 class Batiment:
     
-	def __init__(self, nom, salles) :
+def __init__(self, nom, salles) :
 		self.__salles = salles #sous forme de liste
 		self.__nom = nom
 
         
-	def ajouterSalle(self, salle) :
+def ajouterSalle(self, salle) :
 		self.__salles.append(salle)
         
     
-	def effacement(self, puissAEconomiser): ###à modifier
+def effacement(self, puissAEconomiser): ###à modifier
 		for i in self.__salles:
 			i.effacement(puissAEconomiser)
             
             
-	def consoTotal(self):
+def consoTotal(self):
 		c = 0
 		for i in self.__salles:
 			c += i.consoSalle()
 		return c
-	   
 
-	def __str__(self):
+def __str__(self):
 		s=""
 		for i in self.__salles:
 			s += "\t"
@@ -51,9 +49,3 @@ def Puiss_max_effaçable():
 			Puiss_effaçable+= k.consommation
     
 ##_______________________________________________________________________________
-
-
-
-
-
-
