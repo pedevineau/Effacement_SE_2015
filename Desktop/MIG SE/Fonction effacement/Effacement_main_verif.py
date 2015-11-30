@@ -1,15 +1,15 @@
 import pandas as pd
 from datetime import *
-import Machine_verif 
-import Batiment_verif 
-import Gene_verif 
-import datetime_to_temp_verif as dt
+from Machine_verif import * 
+from Batiment_verif import *
+from Gene_verif import *
+from datetime_to_temp_verif import *
 
 ## déboguer les fonctions appelées
 
-def datetime_to_temperature(datetime1):
+def datetime_to_temperature(datetime1, nom_Fichier):
     str1 = str(datetime1.day) + '/' + str(datetime1.month) + '/' +str(datetime1.year) + ' '             +str(datetime1.hour) + ':' +str(datetime1.minute) + ":" + str(datetime1.second)
-    Data_frame_temperature =    pd.read_csv(Fichier,sep = ";",names=["date et heure","lieu","type1","type2","valeur","unité"],header=None)
+    Data_frame_temperature =    pd.read_csv(nom_Fichier,sep = ";",names=["date et heure","lieu","type1","type2","valeur","unité"],header=None)
     if str1 in Data_frame_temperature["date et heure"]:
         k = Data_frame_temperature["date et heure"].index(str1)
         return(Data_frame_temperature["valeur"][k])
@@ -31,7 +31,7 @@ def effacement_main( date_debut, Puissance_a_effacer ):
         
 
     Puissance_effacee = 0   
-    liste_temp_int_simul[0] = [datetime_to_temperature(date_debut)]
+    liste_temp_int_simul[0] = [datetime_to_temperature(date_debut, nom_Fichier_Tint_Reel)] ##à configurer selon le path
     plus_modifiables = [machine for machine in liste_machines if machine.renvoyerEtatActuel() == 0]
     nb_iter = 0
     
@@ -47,7 +47,7 @@ def effacement_main( date_debut, Puissance_a_effacer ):
                     plus_modifiables.append(machine)
                 elif machine.renvoyerEtatContinu():
                     if machine.renvoyerEtat() >= 0.01:
-                        deltagene = get_delta_gene(machine, date_debut)
+                        deltagene = get_delta_gene( machine, date_debut, liste_temp_int_simul[nb_iter] )
                         priorite = machine.consoMachine()/(deltagene*100)
                         liste_tuples.append( (priorite, machine) )
                     else:
@@ -75,8 +75,8 @@ def effacement_main( date_debut, Puissance_a_effacer ):
     #Début de la boucle temporelle:
     Puissance_chauff = matrice[nb_iter][0][2]
     for i in liste_dates[1::]:
-        liste_temp_int_simul.append( calcul_temp(Puissance_chauff, liste_temp_int_simul[i-1],  ) ) 
-        ##fonction calcul_temp à définir en fonction de P_chauff, T_préc, T_ext(date)
+        liste_temp_int_simul.append( calcul_temp(Puissance_chauff, liste_temp_int_simul[i-1], datetime_to_temperature(i, nom_Fichier_Text_Reel)) ) 
+        ##fonction calcul_temp à définir, et path à configurer
     
     #retour de la liste des temps, liste temporelle des températures simulées, et la matrice pas à pas
     return(liste_dates, liste_temp_int_simul, matrice)
