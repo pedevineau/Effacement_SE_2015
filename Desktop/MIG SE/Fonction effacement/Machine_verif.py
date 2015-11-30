@@ -1,7 +1,9 @@
 class Machine :
         
-	def __init__(self, nom, consoMax, etatActuel, geneMaxTolere, etatContinu, gene) :
+	def __init__(self, nom, consoMax, etatActuel, importance, etatContinu, gene) :
 		self.__nom = nom
+		self.__importance = importance
+
 
 		if(consoMax >= 0) :
 			self.__consoMax = consoMax
@@ -35,14 +37,7 @@ class Machine :
 		self.__etatActuel = etatActuel
 
 # geneMaxTolere dans [0, 1]
-		if(geneMaxTolere < 0 ) :
-			print("ERROR ("+nom+") ==> geneMax mis a 0")
-			geneMaxTolere = 0
-		elif(geneMaxTolere > 1 ) :
-			print("ERROR ("+nom+") ==> geneMax mis a 1")
-			geneMaxTolere = 1
 
-		self.__geneMaxTolere = geneMaxTolere
 		self.__etatContinu = etatContinu
 		self.__gene = gene
 		
@@ -65,8 +60,8 @@ class Machine :
 		return self.__consoMax            
 	def renvoyerEtatActuel(self) :
 		return self.__etatActuel            
-	def renvoyerGeneMaxTolere(self) :
-		return self.__geneMaxTolere            
+	def renvoyerImportance(self):
+		return self.__importance         
 	def renvoyerEtatContinu(self) :
 		return self.__etatContinu            
 	def renvoyerGene(self):
